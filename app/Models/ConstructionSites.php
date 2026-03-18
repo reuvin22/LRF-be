@@ -10,7 +10,7 @@ class ConstructionSites extends Model
 
     protected $primaryKey = 'site_id';
 
-    public $timestamps = true; // uses created_at & updated_at
+    public $timestamps = true;
 
     protected $fillable = [
         'site_code',
@@ -41,8 +41,8 @@ class ConstructionSites extends Model
         return $this->hasMany(SiteSubContractors::class, 'site_id', 'site_id');
     }
 
-    // public function expenses()
-    // {
-    //     return $this->hasMany(SiteExpens::class, 'site_id', 'site_id');
-    // }
+    public function expenses()
+    {
+        return $this->hasMany(SiteExpenseCategory::class, 'site_id', 'site_id');
+    }
 }

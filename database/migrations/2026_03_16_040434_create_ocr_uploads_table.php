@@ -9,7 +9,7 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-public function up(): void
+    public function up(): void
     {
         Schema::create('ocr_uploads', function (Blueprint $table) {
             $table->id('upload_id');
@@ -18,25 +18,27 @@ public function up(): void
             $table->unsignedBigInteger('site_id')->nullable();
             $table->unsignedBigInteger('subcontractor_id')->nullable();
             $table->unsignedBigInteger('confirmed_by')->nullable();
-            $table->enum('upload_source', ['LINE', 'Web']);
+            $table->enum('upload_source', ['LINE', 'WEB']);
             $table->string('image_path');
-            $table->enum('status', ['pending', 'processing', 'completed', 'error'])->default('pending');
+            $table->enum('status', ['PENDING', 'PROCESSING', 'COMPLETED', 'ERROR'])->default('pending');
             $table->integer('ocr_result_amount')->nullable();
             $table->date('ocr_result_date')->nullable();
             $table->text('ocr_result_raw')->nullable();
             $table->boolean('confirmed')->default(false);
             $table->timestamp('confirmed_at')->nullable();
             $table->string('note')->nullable();
-            $table->timestamp('uploaded_at');
+            $table->timestamp('uploaded_at')->useCurrent();
             $table->timestamp('processed_at')->nullable();
 
             $table->timestamps();
-
-            $table->foreign('uploaded_by')->references('employee_id')->on('employees')->onDelete('cascade');
-            $table->foreign('category_id')->references('category_id')->on('ocr_upload_categories')->onDelete('cascade');
-            $table->foreign('site_id')->references('site_id')->on('sites')->onDelete('set null');
-            $table->foreign('subcontractor_id')->references('subcontractor_id')->on('subcontractors')->onDelete('set null');
-            $table->foreign('confirmed_by')->references('employee_id')->on('employees')->onDelete('set null');
+            $table->index('uploaded_by');
+            $table->index('category_id');
+            $table->index('site_id');
+            $table->index('subcontractor_id');
+            $table->index('confirmed_by');
+            $table->index('status');
+            $table->index('upload_source');
+            $table->index(['status', 'upload_source']);
         });
     }
 

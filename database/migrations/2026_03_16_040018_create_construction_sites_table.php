@@ -13,11 +13,9 @@ return new class extends Migration
     {
         Schema::create('construction_sites', function (Blueprint $table) {
             $table->id('site_id');
-
             $table->string('site_code')->nullable();
             $table->string('site_name');
             $table->string('client_name')->nullable();
-
             $table->enum('contract_type', [
                 'QUASI_DELEGATION',
                 'FIXED_PRICE'
