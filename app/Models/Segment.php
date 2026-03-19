@@ -12,6 +12,11 @@ class Segment extends Model
         'segment_type',
         'site_id',
         'start_time',
-        'end_time'
+        'end_time',
+        'type'
+    ];
+    protected $casts = [
+        'start_time' => 'datetime',
+        'end_time' => 'datetime',
     ];
 }

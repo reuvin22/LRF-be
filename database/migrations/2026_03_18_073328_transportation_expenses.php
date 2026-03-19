@@ -13,21 +13,11 @@ return new class extends Migration
     {
         Schema::create('transportation_expenses', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('attendance_id');
+            $table->string('attendance_id');
+            $table->string('site_id');
             $table->integer('amount');
             $table->string('route')->nullable();
-            $table->unsignedBigInteger('site_id');
             $table->timestamps();
-
-            $table->foreign('attendance_id')
-                ->references('attendance_id')
-                ->on('attendances')
-                ->onDelete('cascade');
-
-            $table->foreign('site_id')
-                ->references('id')
-                ->on('sites')
-                ->onDelete('restrict');
         });
     }
     /**

@@ -11,20 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('segments', function (Blueprint $table) {
+       Schema::create('segments', function (Blueprint $table) {
             $table->id('segment_id');
-            $table->foreignId('attendance_id')
-                ->constrained('attendances')
-                ->cascadeOnDelete();
-
+            $table->string('attendance_id');
+            $table->string('type');
             $table->enum('segment_type', ['TRAVEL', 'SITE', 'OFFICE']);
-            $table->foreignId('site_id')
-                ->nullable()
-                ->constrained('sites')
-                ->nullOnDelete();
+            $table->string('site_id')->nullable();
 
-            $table->dateTime('start_time');
-            $table->dateTime('end_time')->nullable();
+            $table->timestampTz('start_time');
+            $table->timestampTz('end_time')->nullable();
+
+            $table->string('site_name')->nullable();
             $table->timestamps();
         });
     }

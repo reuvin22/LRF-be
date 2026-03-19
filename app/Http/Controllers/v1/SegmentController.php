@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\v1;
 
+use App\Events\SegmentEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\v1\SegmentRequests;
 use App\Models\Segment;
@@ -13,7 +14,10 @@ class SegmentController extends Controller
      */
     public function index()
     {
-        $segments = Segment::all();
+        $segments = Segment::all()->map(function ($segment) {
+            return $this->formatSegment($segment);
+        });
+
         return response()->json([
             'success' => true,
             'data' => $segments
@@ -28,7 +32,7 @@ class SegmentController extends Controller
         $validated = $request->validated();
 
         $segment = Segment::create($validated);
-
+        event(new SegmentEvent($segment, 'created'));
         return response()->json([
             'success' => true,
             'message' => 'Segment created successfully',
@@ -73,7 +77,7 @@ class SegmentController extends Controller
         $validated = $request->validated();
 
         $segment->update($validated);
-
+        event(new SegmentEvent($segment, 'update'));
         return response()->json([
             'success' => true,
             'message' => 'Segment updated successfully',
@@ -96,10 +100,33 @@ class SegmentController extends Controller
         }
 
         $segment->delete();
-
+        event(new SegmentEvent($segment, 'deleted'));
         return response()->json([
             'success' => true,
             'message' => 'Segment deleted successfully'
         ]);
+    }
+
+    private function formatSegment($segment)
+    {
+        return [
+            'segment_id' => $segment->segment_id,
+            'attendance_id' => $segment->attendance_id,
+            'type' => $segment->type,
+            'segment_type' => $segment->segment_type,
+            'site_id' => $segment->site_id,
+            'site_name' => $segment->site_name,
+
+            'start_time' => $segment->start_time
+                ? $segment->start_time->addHours(8)->format('Y-m-d H:i:s')
+                : null,
+
+            'end_time' => $segment->end_time
+                ? $segment->end_time->addHours(8)->format('Y-m-d H:i:s')
+                : null,
+
+            'created_at' => $segment->created_at,
+            'updated_at' => $segment->updated_at,
+        ];
     }
 }
