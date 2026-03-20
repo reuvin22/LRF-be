@@ -39,7 +39,7 @@ class SegmentRequests extends FormRequest
     public function rules(): array
     {
         return [
-            'attendance_id' => 'required|string|max:255',
+            'attendance_id' => 'required|integer',
             'segment_type' => 'required|string|in:TRAVEL,SITE,OFFICE',
             'site_id' => 'nullable|string|max:255',
             'start_time' => 'required|date',

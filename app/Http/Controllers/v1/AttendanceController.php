@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\v1;
 
+use App\Events\AttendanceEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\v1\AttendanceRequest;
 use App\Models\Attendance;
@@ -14,7 +15,7 @@ class AttendanceController extends Controller
      */
     public function index()
     {
-        $attendances = Attendance::all();
+        $attendances = Attendance::with(['segments', 'transportation_expenses'])->get();
 
         return response()->json([
             'message' => 'Attendance list retrieved successfully',
@@ -30,7 +31,7 @@ class AttendanceController extends Controller
         $validated = $request->validated();
 
         $attendance = Attendance::create($validated);
-
+        event(new AttendanceEvent($attendance, 'updated'));
         return response()->json([
             'message' => 'Attendance created successfully',
             'data' => $attendance
@@ -60,7 +61,7 @@ class AttendanceController extends Controller
         $validated = $request->validated();
 
         $attendance->update($validated);
-
+        event(new AttendanceEvent($attendance, 'updated'));
         return response()->json([
             'message' => 'Attendance updated successfully',
             'data' => $attendance
@@ -74,7 +75,7 @@ class AttendanceController extends Controller
     {
         $attendance = Attendance::findOrFail($id);
         $attendance->delete();
-
+        event(new AttendanceEvent($attendance, 'updated'));
         return response()->json([
             'message' => 'Attendance deleted successfully'
         ]);

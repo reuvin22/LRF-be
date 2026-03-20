@@ -23,9 +23,9 @@ class AttendanceRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'employee_id' => 'required|exists:employees,employee_id',
+            'employee_id' => 'required|integer',
             'work_date' => 'required|date',
-            'status' => 'required|in:WORKING,COMPLETED',
+            'status' => 'required|in:WORKING,END_OF_DAY',
             'total_work_minutes' => 'nullable|integer|min:0',
             'overtime_minutes' => 'nullable|integer|min:0',
         ];

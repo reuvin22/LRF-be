@@ -23,7 +23,14 @@ class AttendanceResource extends JsonResource
             'overtime_minutes' => $this->overtime_minutes,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            'transportation_expenses' => new TransportExpenseResource($this->whenLoaded('transportation_expenses'))
+
+            'activities' => SegmentResource::collection(
+                $this->whenLoaded('segments')
+            ),
+
+            'transportation_expenses' => TransportExpenseResource::collection(
+                $this->whenLoaded('transportation_expenses')
+            ),
         ];
     }
 }

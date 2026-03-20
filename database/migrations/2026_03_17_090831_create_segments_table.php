@@ -13,7 +13,7 @@ return new class extends Migration
     {
        Schema::create('segments', function (Blueprint $table) {
             $table->id('segment_id');
-            $table->string('attendance_id');
+            $table->unsignedBigInteger('attendance_id');
             $table->string('type');
             $table->enum('segment_type', ['TRAVEL', 'SITE', 'OFFICE']);
             $table->string('site_id')->nullable();

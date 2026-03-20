@@ -6,6 +6,7 @@ use App\Events\SegmentEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\v1\SegmentRequests;
 use App\Models\Segment;
+use Carbon\Carbon;
 
 class SegmentController extends Controller
 {
@@ -30,6 +31,14 @@ class SegmentController extends Controller
     public function store(SegmentRequests $request)
     {
         $validated = $request->validated();
+
+        if (!empty($validated['start_time'])) {
+            $validated['start_time'] = Carbon::parse($validated['start_time'])->utc();
+        }
+
+        if (!empty($validated['end_time'])) {
+            $validated['end_time'] = Carbon::parse($validated['end_time'])->utc();
+        }
 
         $segment = Segment::create($validated);
         event(new SegmentEvent($segment, 'created'));
@@ -73,8 +82,15 @@ class SegmentController extends Controller
                 'message' => 'Segment not found'
             ], 404);
         }
-
         $validated = $request->validated();
+
+        if (!empty($validated['start_time'])) {
+            $validated['start_time'] = Carbon::parse($validated['start_time'])->utc();
+        }
+
+        if (!empty($validated['end_time'])) {
+            $validated['end_time'] = Carbon::parse($validated['end_time'])->utc();
+        }
 
         $segment->update($validated);
         event(new SegmentEvent($segment, 'update'));
@@ -118,11 +134,11 @@ class SegmentController extends Controller
             'site_name' => $segment->site_name,
 
             'start_time' => $segment->start_time
-                ? $segment->start_time->addHours(8)->format('Y-m-d H:i:s')
+                ? $segment->start_time->toISOString()
                 : null,
 
             'end_time' => $segment->end_time
-                ? $segment->end_time->addHours(8)->format('Y-m-d H:i:s')
+                ? $segment->end_time->toISOString()
                 : null,
 
             'created_at' => $segment->created_at,

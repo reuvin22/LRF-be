@@ -19,4 +19,9 @@ class Segment extends Model
         'start_time' => 'datetime',
         'end_time' => 'datetime',
     ];
+
+    public function attendance()
+    {
+        return $this->belongsTo(Attendance::class, 'attendance_id', 'attendance_id');
+    }
 }

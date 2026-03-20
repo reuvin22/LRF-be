@@ -20,10 +20,10 @@ class TransportationExpenseRequests extends FormRequest
     protected function expenseRules(): array
     {
         return [
-            'attendance_id' => 'required|exists:attendances,attendance_id|integer',
+            'attendance_id' => 'required|integer',
             'amount'        => 'required|integer|min:0',
             'route'         => 'nullable|string|max:255',
-            'site_id'       => 'required|exists:sites,id|integer',
+            'site_id'       => 'required|string',
         ];
     }
 
