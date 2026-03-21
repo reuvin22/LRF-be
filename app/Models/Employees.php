@@ -10,7 +10,7 @@ class Employees extends Model
 
     protected $primaryKey = 'employee_id';
 
-    public $timestamps = true; // uses created_at & updated_at
+    public $timestamps = true;
 
     protected $fillable = [
         'employee_code',
@@ -36,18 +36,23 @@ class Employees extends Model
         'joined_date' => 'date',
     ];
 
-    public function siteAssignments()
+    public function site_assignments()
     {
         return $this->hasMany(SiteAssignments::class, 'employee_id', 'employee_id');
     }
 
-    public function ocrUploads()
+    public function ocr_uploads()
     {
         return $this->hasMany(OcrUploads::class, 'uploaded_by', 'employee_id');
     }
 
-    public function ocrVerifications()
+    public function ocr_verifications()
     {
         return $this->hasMany(OcrUploads::class, 'confirmed_by', 'employee_id');
+    }
+
+    public function attendances()
+    {
+        return $this->hasMany(Attendance::class, 'employee_id', 'employee_id');
     }
 }
