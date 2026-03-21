@@ -21,9 +21,4 @@ class SiteExpenseCategory extends Model
     protected $casts = [
         'status' => 'boolean',
     ];
-
-    // public function expenses()
-    // {
-    //     return $this->hasMany(SiteExpense::class, 'category_id', 'category_id');
-    // }
 }

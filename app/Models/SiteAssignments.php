@@ -31,8 +31,8 @@ class SiteAssignments extends Model
         return $this->belongsTo(Employees::class, 'employee_id', 'employee_id');
     }
 
-    // public function site()
-    // {
-    //     return $this->belongsTo(Site::class, 'site_id', 'site_id');
-    // }
+    public function site()
+    {
+        return $this->belongsTo(ConstructionSites::class, 'site_id', 'site_id');
+    }
 }

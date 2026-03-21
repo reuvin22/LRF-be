@@ -28,13 +28,17 @@ class Rates extends Model
         'effective_to' => 'date',
     ];
 
-    public function target()
+    public function employee()
     {
         return $this->belongsTo(Employees::class, 'target_id', 'employee_id');
     }
 
-    // public function site()
-    // {
-    //     return $this->belongsTo(Site::class, 'site_id', 'site_id');
-    // }
+    public function sub_contractor()
+    {
+        return $this->belongsTo(SubContractors::class, 'target_id', 'subcontractor_id');
+    }
+    public function site()
+    {
+        return $this->belongsTo(ConstructionSites::class, 'site_id', 'site_id');
+    }
 }

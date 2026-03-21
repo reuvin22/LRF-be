@@ -12,8 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('rates', function (Blueprint $table) {
-            $table->id('rate_id'); // PK
-
+            $table->id('rate_id');
             $table->enum('rate_type', [
                 'EMPLOYEE_COST',
                 'SUBCONTRACTOR_CONTRACT',

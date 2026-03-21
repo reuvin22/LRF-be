@@ -24,7 +24,6 @@ return new class extends Migration
 
             $table->timestamps();
 
-            // Composite indexes
             $table->index(['site_id', 'employee_id']);
             $table->index(['employee_id', 'site_id']);
             $table->index(['site_id', 'is_leader']);
