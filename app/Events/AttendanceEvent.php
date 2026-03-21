@@ -42,4 +42,18 @@ class AttendanceEvent implements ShouldBroadcastNow
     {
         return 'attendances.event';
     }
+
+    public function broadcastWith(): array
+    {
+        return [
+            'action' => $this->action,
+            'attendance' => [
+                'employee_id' => $this->attendance->employee_id,
+                'work_date' => $this->attendance->work_date,
+                'status' => $this->attendance->status,
+                'total_work_minutes' => $this->attendance->total_work_minutes,
+                'overtime_minutes' => $this->attendance->overtime_minutes,
+            ],
+        ];
+    }
 }
