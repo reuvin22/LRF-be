@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id('attendance_id');
             $table->unsignedBigInteger('employee_id');
             $table->date('work_date');
-            $table->enum('status', ['WORKING', 'END_OF_DAY']);
+            $table->enum('status', ['WORKING', 'END_OF_DAY', 'NOT_STARTED']);
             $table->integer('total_work_minutes')->default(0);
             $table->integer('overtime_minutes')->default(0);
             $table->timestamps();
