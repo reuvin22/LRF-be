@@ -16,5 +16,5 @@ Route::prefix('v1')->group(function() {
     Route::resource('attendances', AttendanceController::class);
     Route::resource('segments', SegmentController::class);
     Route::resource('transportation_expenses', TransportationExpenseController::class);
-    Route::resource('employee', EmployeeController::class);
+    Route::resource('employees', EmployeeController::class);
 });

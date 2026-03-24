@@ -12,12 +12,16 @@ class TransportationExpenseController extends Controller
     /**
      * Display a listing of all transportation expenses.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $expenses = TransportationExpenses::all();
+        $employeeId = $request->employee_id;
+
+        $expenses = TransportationExpenses::where('employee_id', $employeeId)
+            ->select('work_date')
+            ->get();
 
         return response()->json([
-            'message' => 'Transportation expenses retrieved successfully',
+            'message' => 'Work dates retrieved successfully',
             'data' => $expenses
         ]);
     }
@@ -28,12 +32,13 @@ class TransportationExpenseController extends Controller
     public function store(TransportationExpenseRequests $request)
     {
         $validated = $request->validated();
-
-        if (isset($validated['expenses']) && is_array($validated['expenses'])) {
+        if (array_is_list($validated)) {
             $created = [];
-            foreach ($validated['expenses'] as $expenseData) {
+
+            foreach ($validated as $expenseData) {
                 $created[] = TransportationExpenses::create($expenseData);
             }
+
             return response()->json([
                 'message' => 'Transportation expenses created successfully',
                 'data' => $created

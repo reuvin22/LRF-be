@@ -23,11 +23,11 @@ class EmployeeRequests extends FormRequest
     public function rules(): array
     {
         return [
-            'employee_code' => 'required|string|max:50|unique:employees,employee_code',
+            'employee_code' => 'required|string|max:50',
             'name' => 'required|string|max:255',
             'name_kana' => 'nullable|string|max:255',
             'line_user_id' => 'nullable|string|max:255',
-            'email' => 'nullable|email|max:255|unique:employees,email',
+            'email' => 'nullable|email|max:255',
             'employment_type' => 'required|string|in:FULL_TIME,PART_TIME,CONTRACT',
             'role' => 'required|string|in:ADMIN,EMPLOYEE,MANAGER',
             'base_salary' => 'required|integer|min:0',

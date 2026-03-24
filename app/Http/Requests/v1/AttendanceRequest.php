@@ -25,7 +25,7 @@ class AttendanceRequest extends FormRequest
         return [
             'employee_id' => 'required|integer',
             'work_date' => 'required|date',
-            'status' => 'required|in:WORKING,END_OF_DAY',
+            'status' => 'required|in:WORKING,END_OF_DAY,NOT_STARTED',
             'total_work_minutes' => 'nullable|integer|min:0',
             'overtime_minutes' => 'nullable|integer|min:0',
         ];

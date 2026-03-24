@@ -13,13 +13,22 @@ class AttendanceController extends Controller
     /**
      * Display a listing of all attendance records.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $attendances = Attendance::with(['segments', 'transportation_expenses'])->get();
+        $query = Attendance::with(['segments', 'transportation_expenses']);
+
+        if ($request->filled('employee_id')) {
+            $query->where('employee_id', $request->employee_id);
+        }
+
+        if ($request->filled('work_date')) {
+            $query->whereDate('work_date', $request->work_date);
+        }
 
         return response()->json([
             'message' => 'Attendance list retrieved successfully',
-            'data' => $attendances
+            'data' => $query->get(),
+            'request' => $request->all()
         ]);
     }
 
