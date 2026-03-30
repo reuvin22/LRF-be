@@ -14,10 +14,9 @@ class TransportationExpenseController extends Controller
      */
     public function index(Request $request)
     {
-        $employeeId = $request->employee_id;
+        $attendanceId = $request->attendance_id;
 
-        $expenses = TransportationExpenses::where('employee_id', $employeeId)
-            ->select('work_date')
+        $expenses = TransportationExpenses::where('attendance_id', $attendanceId)
             ->get();
 
         return response()->json([
@@ -101,6 +100,21 @@ class TransportationExpenseController extends Controller
 
         return response()->json([
             'message' => 'Transportation expense(s) deleted successfully'
+        ]);
+    }
+
+    public function bulkDelete(Request $request)
+    {
+        $ids = $request->input('ids', []);
+
+        if (!is_array($ids) || empty($ids)) {
+            return response()->json(['message' => 'No IDs provided'], 400);
+        }
+
+        TransportationExpenses::whereIn('id', $ids)->delete();
+
+        return response()->json([
+            'message' => 'Transportation expenses deleted successfully'
         ]);
     }
 }

@@ -7,9 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class SiteAssignments extends Model
 {
     protected $table = 'site_assignments';
-
     protected $primaryKey = 'assignment_id';
-
     public $timestamps = true;
 
     protected $fillable = [

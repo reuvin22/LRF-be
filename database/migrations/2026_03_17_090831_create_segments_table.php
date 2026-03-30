@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('type');
             $table->enum('segment_type', ['TRAVEL', 'SITE', 'OFFICE']);
             $table->string('site_id')->nullable();
-
+            $table->string('site_name')->nullable();
             $table->timestampTz('start_time');
             $table->timestampTz('end_time')->nullable();
 

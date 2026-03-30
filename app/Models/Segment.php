@@ -11,6 +11,7 @@ class Segment extends Model
         'attendance_id',
         'segment_type',
         'site_id',
+        'site_name',
         'start_time',
         'end_time',
         'type'

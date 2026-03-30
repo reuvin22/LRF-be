@@ -23,14 +23,29 @@ class SubContractors extends Model
         'status' => 'boolean',
     ];
 
-    public function siteAssignments()
-    {
-        return $this->hasMany(SiteSubContractors::class, 'subcontractor_id', 'subcontractor_id');
-    }
+    // public function siteAssignments()
+    // {
+    //     return $this->hasMany(SiteSubContractors::class, 'subcontractor_id', 'subcontractor_id');
+    // }
 
     public function rates()
     {
         return $this->hasMany(Rates::class, 'target_id', 'subcontractor_id')
                     ->where('target_type', 'subcontractor');
+    }
+
+    public function sites()
+    {
+        return $this->hasMany(ConstructionSites::class, 'site_id', 'site_id');
+    }
+
+    public function siteSubcontractor()
+    {
+        return $this->hasMany(SiteSubContractors::class, 'subcontractor_id', 'subcontractor_id');
+    }
+
+    public function workers()
+    {
+        return $this->hasMany(SubContractorsWorkers::class, 'subcontractor_id', 'subcontractor_id');
     }
 }

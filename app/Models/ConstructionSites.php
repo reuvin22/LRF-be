@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ConstructionSites extends Model
 {
-    protected $table = 'sites';
+    protected $table = 'construction_sites';
 
     protected $primaryKey = 'site_id';
 
@@ -44,5 +44,10 @@ class ConstructionSites extends Model
     public function expenses()
     {
         return $this->hasMany(SiteExpenseCategory::class, 'site_id', 'site_id');
+    }
+
+    public function siteSubcontractors()
+    {
+        return $this->hasMany(SiteSubContractors::class, 'site_id', 'site_id');
     }
 }

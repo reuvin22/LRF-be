@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('transportation_expenses', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('attendance_id');
+            $table->unsignedBigInteger('employee_id');
             $table->string('site_id');
             $table->integer('amount');
             $table->string('route')->nullable();

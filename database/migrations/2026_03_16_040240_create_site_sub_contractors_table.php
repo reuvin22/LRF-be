@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('site_subcontractors', function (Blueprint $table) {
             $table->id();
 
-            $table->unsignedBigInteger('site_id')->index();
-            $table->unsignedBigInteger('subcontractor_id')->index();
+            $table->unsignedBigInteger('site_id');
+            $table->unsignedBigInteger('subcontractor_id');
 
             $table->enum('contract_type', [
                 'QUASI_DELEGATION',
@@ -23,16 +23,14 @@ return new class extends Migration
             ])->index();
 
             $table->timestamps();
-
-            $table->index(['site_id', 'subcontractor_id']);
-            $table->index(['subcontractor_id', 'site_id']);
         });
     }
+
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('site_sub_contractors');
+        Schema::dropIfExists('site_subcontractors');
     }
 };

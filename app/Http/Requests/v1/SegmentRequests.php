@@ -41,7 +41,8 @@ class SegmentRequests extends FormRequest
         return [
             'attendance_id' => 'required|integer',
             'segment_type' => 'required|string|in:TRAVEL,SITE,OFFICE',
-            'site_id' => 'nullable|string|max:255',
+            'site_id' => 'nullable|string',
+            'site_name' => 'nullable|string',
             'start_time' => 'required|date',
             'end_time' => 'nullable|date|after_or_equal:start_time',
             'type' => 'required|string'

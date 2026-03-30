@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class SiteSubContractors extends Model
 {
-    protected $table = 'site_sub_contractors';
+    protected $table = 'site_subcontractors';
 
     protected $primaryKey = 'id';
 
@@ -24,11 +24,11 @@ class SiteSubContractors extends Model
 
     public function site()
     {
-        return $this->belongsTo(ConstructionSites::class, 'site_id', 'site_id');
+        return $this->hasMany(ConstructionSites::class, 'site_id', 'site_id');
     }
 
     public function subcontractor()
     {
-        return $this->belongsTo(SubContractors::class, 'subcontractor_id', 'subcontractor_id');
+        return $this->hasMany(SubContractors::class, 'subcontractor_id', 'subcontractor_id');
     }
 }

@@ -35,6 +35,7 @@ class TransportationExpenseRequests extends FormRequest
     public function rules(): array
     {
         return [
+            '*.employee_id' => 'required|integer',
             '*.attendance_id' => 'required|integer',
             '*.amount'        => 'required|integer|min:0',
             '*.route'         => 'nullable|string|max:255',
