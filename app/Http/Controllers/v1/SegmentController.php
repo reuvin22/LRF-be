@@ -15,7 +15,7 @@ class SegmentController extends Controller
      */
     public function index()
     {
-        $segments = Segment::all()->map(function ($segment) {
+        $segments = Segment::latest()->get()->map(function ($segment) {
             return $this->formatSegment($segment);
         });
 

@@ -55,4 +55,9 @@ class Employees extends Model
     {
         return $this->hasMany(Attendance::class, 'employee_id', 'employee_id');
     }
+
+    public function segments()
+    {
+        return $this->hasMany(Attendance::class, 'employee_id', 'employee_id');
+    }
 }

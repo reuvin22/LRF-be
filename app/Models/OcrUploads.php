@@ -16,6 +16,7 @@ class OcrUploads extends Model
         'uploaded_by',
         'upload_source',
         'category_id',
+        'attendance_id',
         'site_id',
         'subcontractor_id',
         'image_path',
@@ -55,10 +56,10 @@ class OcrUploads extends Model
         return $this->belongsTo(OcrUploadCategory::class, 'category_id', 'category_id');
     }
 
-    // public function site()
-    // {
-    //     return $this->belongsTo(Site::class, 'site_id', 'site_id');
-    // }
+    public function sites()
+    {
+        return $this->belongsTo(ConstructionSites::class, 'site_id', 'site_id');
+    }
 
     public function subcontractor()
     {

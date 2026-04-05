@@ -15,7 +15,7 @@ class ConstructionSitesController extends Controller
      */
     public function index(): JsonResponse
     {
-        $sites = ConstructionSites::all();
+        $sites = ConstructionSites::with('subcontractors.workers')->get();
 
         return response()->json([
             'success' => true,

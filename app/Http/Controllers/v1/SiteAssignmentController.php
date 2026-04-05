@@ -7,6 +7,7 @@ use App\Http\Requests\v1\SiteAssignmentRequest;
 use App\Http\Resources\v1\SiteAssignmentResource;
 use App\Models\SiteAssignment;
 use App\Models\SiteAssignments;
+use Illuminate\Http\Request;
 
 class SiteAssignmentController extends Controller
 {
@@ -78,6 +79,26 @@ class SiteAssignmentController extends Controller
 
         return response()->json([
             'message' => 'Site assignment deleted successfully'
+        ]);
+    }
+
+    public function assignedSitesEmployee(Request $request)
+    {
+        $request->validate([
+            'employee_id' => 'required|integer|exists:employees,employee_id',
+        ]);
+
+        $employeeId = $request->input('employee_id');
+
+        // Get assignments for the employee with related employee and site
+        $assignments = SiteAssignments::with(['employee', 'site'])
+            ->where('employee_id', $employeeId)
+            ->orderBy('assignment_id', 'desc')
+            ->get();
+
+        return response()->json([
+            'message' => 'Assigned sites retrieved successfully',
+            'data' => SiteAssignmentResource::collection($assignments),
         ]);
     }
 }

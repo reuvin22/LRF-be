@@ -27,7 +27,7 @@ class OcrUploadCategory extends Model
 
     public function uploads()
     {
-        return $this->hasMany(OcrUploads::class, 'category_id', 'category_id');
+        return $this->belongsTo(OcrUploads::class, 'category_id', 'category_id');
     }
 
     public function scopeActive($query)

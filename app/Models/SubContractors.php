@@ -48,4 +48,16 @@ class SubContractors extends Model
     {
         return $this->hasMany(SubContractorsWorkers::class, 'subcontractor_id', 'subcontractor_id');
     }
+
+    public function employees()
+    {
+        return $this->hasManyThrough(
+            Employees::class,
+            SubContractorsWorkers::class,
+            'subcontractor_id',
+            'employee_id',
+            'subcontractor_id',
+            'worker_id'
+        );
+    }
 }

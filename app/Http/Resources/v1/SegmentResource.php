@@ -15,6 +15,7 @@ class SegmentResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
+            'employee' => $this->employee_id,
             'segment_id' => $this->segment_id,
             'attendance_id' => $this->attendance_id,
             'type' => $this->type,

@@ -19,7 +19,7 @@ class SubContractorController extends Controller
     {
         $subcontractors = SubContractors::with([
             'siteSubcontractor.site',
-            'workers'
+            'workers',
         ])->latest()->get();
 
         return response()->json([

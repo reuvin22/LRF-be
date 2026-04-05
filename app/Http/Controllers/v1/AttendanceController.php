@@ -4,8 +4,11 @@ namespace App\Http\Controllers\v1;
 
 use App\Events\AttendanceEvent;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\v1\AttendanceEmployeeRequest;
 use App\Http\Requests\v1\AttendanceRequest;
+use App\Http\Resources\v1\AttendanceResource;
 use App\Models\Attendance;
+use App\Models\AttendanceEmployee;
 use Illuminate\Http\Request;
 
 class AttendanceController extends Controller
@@ -15,7 +18,7 @@ class AttendanceController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Attendance::with(['segments', 'transportation_expenses']);
+        $query = Attendance::with(['segments', 'transportation_expenses', 'attendance_subcontractor_segments']);
 
         if ($request->filled('employee_id')) {
             $query->where('employee_id', $request->employee_id);
@@ -38,6 +41,17 @@ class AttendanceController extends Controller
     public function store(AttendanceRequest $request)
     {
         $validated = $request->validated();
+
+        $existing = Attendance::where('employee_id', $validated['employee_id'])
+            ->where('work_date', $validated['work_date'])
+            ->first();
+
+        if ($existing) {
+            return response()->json([
+                'message' => 'Attendance already exists for this work date',
+                'data' => $existing
+            ], 200);
+        }
 
         $attendance = Attendance::create($validated);
         event(new AttendanceEvent($attendance, 'updated'));
@@ -87,6 +101,52 @@ class AttendanceController extends Controller
         event(new AttendanceEvent($attendance, 'updated'));
         return response()->json([
             'message' => 'Attendance deleted successfully'
+        ]);
+    }
+
+    public function dashboard()
+    {
+        $attendances = Attendance::with([
+            'employees',                     // updated relation
+            'segments',
+            'transportation_expenses',
+            'attendance_subcontractor_segments',
+        ])->get();
+
+        return AttendanceResource::collection($attendances);
+    }
+
+    public function attendance_employee(AttendanceEmployeeRequest $request)
+    {
+        $attendanceEmployee = AttendanceEmployee::create([
+            'attendance_id' => $request->attendance_id,
+            'employee_id' => $request->employee_id,
+        ]);
+
+        return response()->json([
+            'message' => 'Employee assigned to attendance successfully',
+            'data' => $attendanceEmployee,
+        ]);
+    }
+
+    public function get_attendance_employee_by_attendance(Request $request)
+    {
+        $attendance_id = $request->query('attendance_id');
+
+        if (!$attendance_id) {
+            return response()->json([
+                'message' => 'attendance_id is required',
+            ], 400);
+        }
+
+        // Assuming AttendanceEmployee has a relationship to segments
+        $attendanceEmployees = AttendanceEmployee::with('segments') // eager load segments
+            ->where('attendance_id', $attendance_id)
+            ->get();
+
+        return response()->json([
+            'message' => 'Employees and segments for attendance retrieved successfully',
+            'data' => $attendanceEmployees,
         ]);
     }
 }

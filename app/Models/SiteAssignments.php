@@ -33,4 +33,9 @@ class SiteAssignments extends Model
     {
         return $this->belongsTo(ConstructionSites::class, 'site_id', 'site_id');
     }
+
+    public function subcontractor_workers()
+    {
+        return $this->hasMany(SubContractorsWorkers::class, 'site_id', 'site_id');
+    }
 }

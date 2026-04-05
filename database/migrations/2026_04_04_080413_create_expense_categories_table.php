@@ -2,7 +2,6 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -12,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ocr_upload_categories', function (Blueprint $table) {
-            $table->id('category_id');
+        Schema::create('expense_categories', function (Blueprint $table) {
+            $table->id();
             $table->string('category_name');
-            $table->string('description')->nullable();
-            $table->enum('status', ['ACTIVE', 'INACTIVE'])->default('INACTIVE');
+            $table->longText('description');
+            $table->enum('status', ['ACTIVE', 'INACTIVE'])
+                  ->default('INACTIVE');
             $table->timestamps();
         });
     }
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('ocr_upload_categories');
+        Schema::dropIfExists('expense_categories');
     }
 };

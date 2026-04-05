@@ -11,17 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-       Schema::create('segments', function (Blueprint $table) {
-            $table->id('segment_id');
+        Schema::create('attendance_employee', function (Blueprint $table) {
+            $table->id();
             $table->unsignedBigInteger('attendance_id');
             $table->unsignedBigInteger('employee_id');
-            $table->string('type');
-            $table->enum('segment_type', ['TRAVEL', 'SITE', 'OFFICE']);
-            $table->string('site_id')->nullable();
-            $table->string('site_name')->nullable();
-            $table->timestampTz('start_time');
-            $table->timestampTz('end_time')->nullable();
             $table->timestamps();
+            $table->unique(['attendance_id', 'employee_id']);
         });
     }
 
@@ -30,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('segments');
+        Schema::dropIfExists('attendance_employees');
     }
 };

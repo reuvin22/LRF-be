@@ -26,9 +26,14 @@ class Attendance extends Model
         'overtime_minutes' => 'integer',
     ];
 
-    public function employee()
+    public function employees()
     {
-        return $this->belongsTo(Employees::class, 'employee_id', 'employee_id');
+        return $this->belongsToMany(
+            Employees::class,
+            'attendance_employee',
+            'attendance_id',
+            'employee_id'
+        );
     }
 
     public function segments()
@@ -39,5 +44,10 @@ class Attendance extends Model
     public function transportation_expenses()
     {
         return $this->hasMany(TransportationExpenses::class, 'attendance_id', 'attendance_id');
+    }
+
+    public function attendance_subcontractor_segments()
+    {
+        return $this->hasMany(AttendanceSubcontractorSegments::class, 'attendance_id', 'attendance_id');
     }
 }

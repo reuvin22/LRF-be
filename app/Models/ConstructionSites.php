@@ -38,7 +38,14 @@ class ConstructionSites extends Model
 
     public function subcontractors()
     {
-        return $this->hasMany(SiteSubContractors::class, 'site_id', 'site_id');
+        return $this->belongsToMany(
+            SubContractors::class,
+            'site_subcontractors',
+            'site_id',
+            'subcontractor_id',
+            'site_id',
+            'subcontractor_id'
+        )->with('workers');
     }
 
     public function expenses()
@@ -49,5 +56,10 @@ class ConstructionSites extends Model
     public function siteSubcontractors()
     {
         return $this->hasMany(SiteSubContractors::class, 'site_id', 'site_id');
+    }
+
+    public function ocrUpload()
+    {
+        return $this->belongsTo(OcrUploads::class, 'site_id', 'site_id');
     }
 }

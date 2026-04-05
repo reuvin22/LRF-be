@@ -34,9 +34,9 @@ class ConstructionSiteResource extends JsonResource
             //     $this->whenLoaded('siteAssignments')
             // ),
 
-            // 'subcontractors' => SiteSubContractorResource::collection(
-            //     $this->whenLoaded('subcontractors')
-            // ),
+            'subcontractors' => SubContractorResource::collection(
+                $this->whenLoaded('subcontractors')
+            ),
 
             // 'expenses' => SiteExpenseCategoryResource::collection(
             //     $this->whenLoaded('expenses')

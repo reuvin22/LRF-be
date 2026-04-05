@@ -16,7 +16,6 @@ class AttendanceResource extends JsonResource
     {
         return [
             'id' => $this->attendance_id,
-            'employee_id' => $this->employee_id,
             'work_date' => $this->work_date,
             'status' => $this->status,
             'total_work_minutes' => $this->total_work_minutes,
@@ -24,12 +23,20 @@ class AttendanceResource extends JsonResource
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
 
+            'employees' => EmployeeResource::collection(
+                $this->whenLoaded('employees')
+            ),
+
             'activities' => SegmentResource::collection(
                 $this->whenLoaded('segments')
             ),
 
             'transportation_expenses' => TransportExpenseResource::collection(
                 $this->whenLoaded('transportation_expenses')
+            ),
+
+            'attendance_subcontractor' => TransportExpenseResource::collection(
+                $this->whenLoaded('attendance_subcontractor_segments')
             ),
         ];
     }

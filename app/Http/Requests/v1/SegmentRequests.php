@@ -40,6 +40,8 @@ class SegmentRequests extends FormRequest
     {
         return [
             'attendance_id' => 'required|integer',
+            'employee_id' => 'required|integer',
+            'site_id' => 'nullable|integer',
             'segment_type' => 'required|string|in:TRAVEL,SITE,OFFICE',
             'site_id' => 'nullable|string',
             'site_name' => 'nullable|string',

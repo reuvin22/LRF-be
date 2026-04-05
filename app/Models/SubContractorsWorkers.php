@@ -38,4 +38,9 @@ class SubContractorsWorkers extends Model
     {
         return $this->hasMany(SiteSubContractors::class, 'subcontractor_id', 'subcontractor_id');
     }
+
+    public function employees()
+    {
+        return $this->hasMany(Employees::class, 'employee_id', 'employee_id');
+    }
 }
