@@ -104,20 +104,16 @@ class AttendanceController extends Controller
         ]);
     }
 
-    public function dashboard(Request $request)
+    public function dashboard()
     {
-        $date = $request->date ?? now()->toDateString();
-
-        $attendance = Attendance::whereDate('work_date', $date)->get();
-
-        $attendance->load([
-            'employees',
+        $attendances = Attendance::with([
+            'employees',                     // updated relation
             'segments',
             'transportation_expenses',
             'attendance_subcontractor_segments',
-        ]);
+        ])->get();
 
-        return AttendanceResource::collection($attendance);
+        return AttendanceResource::collection($attendances);
     }
 
     public function attendance_employee(AttendanceEmployeeRequest $request)

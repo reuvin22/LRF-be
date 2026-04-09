@@ -35,8 +35,4 @@ return [
         ],
     ],
 
-    'firebase' => [
-        'credentials' => storage_path('app/lrf.json'),
-        'storage_bucket' => env('FIREBASE_STORAGE_BUCKET'),
-    ],
 ];

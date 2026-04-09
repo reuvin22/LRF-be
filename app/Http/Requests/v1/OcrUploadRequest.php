@@ -25,7 +25,7 @@ class OcrUploadRequest extends FormRequest
             'ocr_result_amount' => 'nullable|integer',
             'ocr_result_date' => 'nullable|date',
             'ocr_result_raw' => 'nullable|string',
-            'image_base64' => 'nullable',
+
             'confirmed' => 'nullable|boolean',
             'confirmed_by' => 'nullable|integer',
             'confirmed_at' => 'nullable|date',
