@@ -5,16 +5,16 @@ namespace App\Http\Controllers\v1;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\v1\AttendanceSubcontractorSegmentResource;
 use Illuminate\Http\Request;
-use App\Models\AttendanceSubcontractorSegments;
+use App\Models\AttendanceSubSegments;
 
-class AttendanceSubcontractorSegmentController extends Controller
+class AttendanceSubSegmentController extends Controller
 {
     /**
      * GET /attendance-subcontractor-segments
      */
     public function index()
     {
-        $data = AttendanceSubcontractorSegments::with('segments', 'worker', 'site', 'subcontractor')->get();
+        $data = AttendanceSubSegments::with('segments', 'worker', 'site', 'subcontractor')->get();
 
         return response()->json([
             'success' => true,
@@ -42,7 +42,7 @@ class AttendanceSubcontractorSegmentController extends Controller
             'end_time' => 'required|date|after_or_equal:start_time'
         ]);
 
-        $record = AttendanceSubcontractorSegments::create($validated);
+        $record = AttendanceSubSegments::create($validated);
 
         return response()->json([
             'success' => true,
@@ -55,7 +55,7 @@ class AttendanceSubcontractorSegmentController extends Controller
      */
     public function show(string $id)
     {
-        $record = AttendanceSubcontractorSegments::find($id);
+        $record = AttendanceSubSegments::find($id);
 
         if (!$record) {
             return response()->json([
@@ -75,7 +75,7 @@ class AttendanceSubcontractorSegmentController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $record = AttendanceSubcontractorSegments::find($id);
+        $record = AttendanceSubSegments::find($id);
 
         if (!$record) {
             return response()->json([
@@ -107,7 +107,7 @@ class AttendanceSubcontractorSegmentController extends Controller
      */
     public function destroy(string $id)
     {
-        $record = AttendanceSubcontractorSegments::find($id);
+        $record = AttendanceSubSegments::find($id);
 
         if (!$record) {
             return response()->json([
@@ -126,7 +126,7 @@ class AttendanceSubcontractorSegmentController extends Controller
 
     public function getAttendanceSubcontractor(Request $request)
     {
-        $data = AttendanceSubcontractorSegments::with('segments', 'worker', 'site', 'subcontractor')
+        $data = AttendanceSubSegments::with('segments', 'worker', 'site', 'subcontractor')
             ->where('employee_id', $request->employee_id)
             ->get();
 
