@@ -35,7 +35,7 @@ class AttendanceResource extends JsonResource
                 $this->whenLoaded('transportation_expenses')
             ),
 
-            'attendance_subcontractor' => TransportExpenseResource::collection(
+            'attendance_subcontractor' => AttendanceSubcontractorSegmentResource::collection(
                 $this->whenLoaded('attendance_subcontractor_segments')
             ),
         ];
