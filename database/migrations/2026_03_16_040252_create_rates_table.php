@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('rates', function (Blueprint $table) {
-            $table->id('rate_id');
+            $table->uuid('rate_id')->primary();
             $table->enum('rate_type', [
                 'EMPLOYEE_COST',
                 'SUBCONTRACTOR_CONTRACT',
@@ -24,8 +24,8 @@ return new class extends Migration
                 'SUBCONTRACTOR',
                 'SUBCONTRACTOR_WORKER'
             ]);
-            $table->unsignedBigInteger('target_id');
-            $table->unsignedBigInteger('site_id')->nullable();
+            $table->uuid('target_id');
+            $table->uuid('site_id')->nullable();
             $table->integer('unit_price');
             $table->date('effective_from');
             $table->date('effective_to')->nullable();

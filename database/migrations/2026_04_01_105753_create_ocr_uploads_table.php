@@ -12,13 +12,13 @@ return new class extends Migration
         public function up(): void
     {
         Schema::create('ocr_uploads', function (Blueprint $table) {
-            $table->bigIncrements('upload_id');
-            $table->unsignedBigInteger('uploaded_by');
-            $table->unsignedBigInteger('category_id');
-            $table->unsignedBigInteger('site_id')->nullable();
-            $table->unsignedBigInteger('subcontractor_id')->nullable();
-            $table->unsignedBigInteger('confirmed_by')->nullable();
-            $table->unsignedBigInteger('attendance_id');
+            $table->uuid('upload_id')->primary();
+            $table->uuid('uploaded_by');
+            $table->uuid('category_id');
+            $table->uuid('site_id')->nullable();
+            $table->uuid('subcontractor_id')->nullable();
+            $table->uuid('confirmed_by')->nullable();
+            $table->uuid('attendance_id');
             $table->enum('upload_source', ['LINE', 'Web']);
             $table->enum('status', ['PENDING', 'PROCESSING', 'COMPLETED', 'ERROR'])
                   ->default('PENDING');

@@ -12,10 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('site_assignments', function (Blueprint $table) {
-            $table->id('assignment_id');
+            $table->uuid('assignment_id')->primary();
 
-            $table->unsignedBigInteger('employee_id')->index();
-            $table->unsignedBigInteger('site_id')->index();
+            $table->uuid('employee_id')->index();
+            $table->uuid('site_id')->index();
 
             $table->boolean('is_leader')->default(false)->index();
 

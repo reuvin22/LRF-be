@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('expense_categories', function (Blueprint $table) {
-            $table->id();
+            $table->uuid()->primary();
             $table->string('category_name');
             $table->longText('description');
             $table->enum('status', ['ACTIVE', 'INACTIVE'])
