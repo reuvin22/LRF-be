@@ -19,6 +19,22 @@ return new class extends Migration
             $table->integer('total_work_minutes')->default(0);
             $table->integer('overtime_minutes')->default(0);
             $table->timestamps();
+            $table->foreign('attendance_id')
+                ->references('attendance_id')
+                ->on('segments')
+                ->onDelete('cascade');
+            $table->foreign('attendance_id')
+                ->references('attendance_id')
+                ->on('transportation_expenses')
+                ->onDelete('cascade');
+            $table->foreign('attendance_id')
+                ->references('attendance_id')
+                ->on('subcontractors')
+                ->onDelete('cascade');
+            $table->foreign('attendance_id')
+                ->references('attendance_id')
+                ->on('subcontractor_reports')
+                ->onDelete('cascade');
         });
     }
 

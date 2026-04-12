@@ -19,6 +19,10 @@ return new class extends Migration
             $table->integer('amount');
             $table->string('route')->nullable();
             $table->timestamps();
+            $table->foreign('attendance_id')
+                ->references('attendance_id')
+                ->on('attendances')
+                ->onDelete('cascade');
         });
     }
     /**

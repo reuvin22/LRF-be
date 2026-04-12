@@ -33,6 +33,10 @@ return new class extends Migration
             $table->timestamp('processed_at')->nullable();
 
             $table->timestamps();
+            $table->foreign('attendance_id')
+                ->references('attendance_id')
+                ->on('attendances')
+                ->onDelete('cascade');
         });
     }
 

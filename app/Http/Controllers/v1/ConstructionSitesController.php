@@ -10,9 +10,6 @@ use Illuminate\Http\JsonResponse;
 
 class ConstructionSitesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index(): JsonResponse
     {
         $sites = ConstructionSites::with('subcontractors.workers')->get();
@@ -23,9 +20,6 @@ class ConstructionSitesController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(ConstructionSitesRequest $request): JsonResponse
     {
         $site = ConstructionSites::create($request->validated());
@@ -37,9 +31,6 @@ class ConstructionSitesController extends Controller
         ], 201);
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id): JsonResponse
     {
         $site = ConstructionSites::findOrFail($id);
@@ -50,9 +41,6 @@ class ConstructionSitesController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(ConstructionSitesRequest $request, string $id): JsonResponse
     {
         $site = ConstructionSites::findOrFail($id);
@@ -66,9 +54,6 @@ class ConstructionSitesController extends Controller
         ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id): JsonResponse
     {
         $site = ConstructionSites::findOrFail($id);

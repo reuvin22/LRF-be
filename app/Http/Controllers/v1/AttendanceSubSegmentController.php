@@ -9,9 +9,6 @@ use App\Models\AttendanceSubSegments;
 
 class AttendanceSubSegmentController extends Controller
 {
-    /**
-     * GET /attendance-subcontractor-segments
-     */
     public function index()
     {
         $data = AttendanceSubSegments::with('segments', 'worker', 'site', 'subcontractor')->get();
@@ -22,9 +19,6 @@ class AttendanceSubSegmentController extends Controller
         ]);
     }
 
-    /**
-     * POST /attendance-subcontractor-segments
-     */
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -50,9 +44,6 @@ class AttendanceSubSegmentController extends Controller
         ], 201);
     }
 
-    /**
-     * GET /attendance-subcontractor-segments/{id}
-     */
     public function show(string $id)
     {
         $record = AttendanceSubSegments::find($id);
@@ -70,9 +61,6 @@ class AttendanceSubSegmentController extends Controller
         ]);
     }
 
-    /**
-     * PUT /attendance-subcontractor-segments/{id}
-     */
     public function update(Request $request, string $id)
     {
         $record = AttendanceSubSegments::find($id);
@@ -102,9 +90,6 @@ class AttendanceSubSegmentController extends Controller
         ]);
     }
 
-    /**
-     * DELETE /attendance-subcontractor-segments/{id}
-     */
     public function destroy(string $id)
     {
         $record = AttendanceSubSegments::find($id);

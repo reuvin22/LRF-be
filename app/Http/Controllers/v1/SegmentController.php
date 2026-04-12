@@ -10,9 +10,6 @@ use Carbon\Carbon;
 
 class SegmentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $segments = Segment::latest()->get()->map(function ($segment) {
@@ -25,9 +22,6 @@ class SegmentController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(SegmentRequests $request)
     {
         $validated = $request->validated();
@@ -49,9 +43,6 @@ class SegmentController extends Controller
         ], 201);
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         $segment = Segment::find($id);
@@ -69,9 +60,6 @@ class SegmentController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(SegmentRequests $request, string $id)
     {
         $segment = Segment::find($id);
@@ -101,9 +89,6 @@ class SegmentController extends Controller
         ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         $segment = Segment::find($id);

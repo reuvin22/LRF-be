@@ -48,6 +48,6 @@ class Attendance extends Model
 
     public function attendance_subcontractor_segments()
     {
-        return $this->hasMany(AttendanceSubcontractorSegments::class, 'attendance_id', 'attendance_id');
+        return $this->hasMany(AttendanceSubSegments::class, 'attendance_id', 'attendance_id');
     }
 }

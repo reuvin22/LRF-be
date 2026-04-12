@@ -17,6 +17,10 @@ return new class extends Migration
             $table->unsignedBigInteger('employee_id');
             $table->timestamps();
             $table->unique(['attendance_id', 'employee_id']);
+            $table->foreign('attendance_id')
+                ->references('attendance_id')
+                ->on('attendances')
+                ->onDelete('cascade');
         });
     }
 

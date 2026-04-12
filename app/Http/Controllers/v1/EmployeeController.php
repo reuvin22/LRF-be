@@ -8,9 +8,6 @@ use App\Models\Employees;
 
 class EmployeeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $employees = Employees::with('attendances')->get();
@@ -21,9 +18,6 @@ class EmployeeController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(EmployeeRequests $request)
     {
         $validated = $request->validated();
@@ -37,9 +31,6 @@ class EmployeeController extends Controller
         ], 201);
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         $employee = Employees::find($id);
@@ -57,9 +48,6 @@ class EmployeeController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(EmployeeRequests $request, string $id)
     {
         $employee = Employees::find($id);
@@ -82,9 +70,6 @@ class EmployeeController extends Controller
         ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         $employee = Employees::find($id);

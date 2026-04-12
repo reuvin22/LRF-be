@@ -11,9 +11,6 @@ use Illuminate\Http\Request;
 
 class SiteAssignmentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $assignments = SiteAssignments::with(['employee', 'site'])
@@ -23,9 +20,6 @@ class SiteAssignmentController extends Controller
         return SiteAssignmentResource::collection($assignments);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(SiteAssignmentRequest $request)
     {
         $validated = $request->validated();
@@ -38,9 +32,6 @@ class SiteAssignmentController extends Controller
         ], 201);
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         $siteAssignment = SiteAssignments::findOrFail($id);
@@ -48,9 +39,6 @@ class SiteAssignmentController extends Controller
         return response()->json($siteAssignment);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(SiteAssignmentRequest $request, string $id)
     {
         $siteAssignment = SiteAssignments::findOrFail($id);
@@ -69,9 +57,6 @@ class SiteAssignmentController extends Controller
         ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         $siteAssignment = SiteAssignments::findOrFail($id);
@@ -89,8 +74,6 @@ class SiteAssignmentController extends Controller
         ]);
 
         $employeeId = $request->input('employee_id');
-
-        // Get assignments for the employee with related employee and site
         $assignments = SiteAssignments::with(['employee', 'site'])
             ->where('employee_id', $employeeId)
             ->orderBy('assignment_id', 'desc')

@@ -9,9 +9,6 @@ use Illuminate\Http\Request;
 
 class TransportationExpenseController extends Controller
 {
-    /**
-     * Display a listing of all transportation expenses.
-     */
     public function index(Request $request)
     {
         $attendanceId = $request->attendance_id;
@@ -25,9 +22,6 @@ class TransportationExpenseController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created transportation expense.
-     */
     public function store(TransportationExpenseRequests $request)
     {
         $validated = $request->validated();
@@ -52,9 +46,6 @@ class TransportationExpenseController extends Controller
         ], 201);
     }
 
-    /**
-     * Display the specified transportation expense.
-     */
     public function show(string $id)
     {
         $expense = TransportationExpenses::findOrFail($id);
@@ -65,9 +56,6 @@ class TransportationExpenseController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified transportation expense(s).
-     */
     public function update(TransportationExpenseRequests $request, $id = null)
     {
         $validated = $request->validated();
@@ -86,9 +74,6 @@ class TransportationExpenseController extends Controller
         ]);
     }
 
-    /**
-     * Remove the specified transportation expense(s).
-     */
     public function destroy(Request $request, $id = null)
     {
         $ids = $id ? explode(',', $id) : $request->input('ids', []);

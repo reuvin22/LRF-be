@@ -12,9 +12,6 @@ use Illuminate\Http\JsonResponse;
 
 class SubContractorController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index(): JsonResponse
     {
         $subcontractors = SubContractors::with([
@@ -28,9 +25,6 @@ class SubContractorController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(SubContractorRequest $request): JsonResponse
     {
         $worker = SubContractorsWorkers::create($request->validated());
@@ -42,9 +36,6 @@ class SubContractorController extends Controller
         ], 201);
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id): JsonResponse
     {
         $worker = SubContractorsWorkers::findOrFail($id);
@@ -55,9 +46,6 @@ class SubContractorController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(SubContractorRequest $request, string $id): JsonResponse
     {
         $worker = SubContractorsWorkers::findOrFail($id);
@@ -71,9 +59,6 @@ class SubContractorController extends Controller
         ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id): JsonResponse
     {
         $worker = SubContractorsWorkers::findOrFail($id);

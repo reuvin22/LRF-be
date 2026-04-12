@@ -13,9 +13,6 @@ use Illuminate\Support\Facades\Log;
 
 class OcrUploadController extends Controller
 {
-    /**
-     * GET /ocr-uploads
-     */
     public function index()
     {
         $uploads = OcrUploads::latest()->paginate(10);
@@ -23,23 +20,15 @@ class OcrUploadController extends Controller
         return OcrUploadResource::collection($uploads);
     }
 
-    /**
-     * POST /ocr-uploads
-     */
     public function store(OcrUploadRequest $request, FirebaseService $firebase)
     {
         $data = $request->validated();
-
-        // 🔥 Get base64 directly (NOT relying on $data)
         $base64 = $request->input('image_base64');
 
         if (!empty($base64)) {
-
-            // Remove base64 prefix
             $image = preg_replace('#^data:image/\w+;base64,#i', '', $base64);
             $image = base64_decode($image);
 
-            // Validate base64
             if ($image === false || strlen($image) < 100) {
                 return response()->json([
                     'message' => 'Invalid base64 image'
@@ -54,7 +43,6 @@ class OcrUploadController extends Controller
             $bucket = $storage->getBucket();
 
             try {
-                // Upload
                 $object = $bucket->upload($image, [
                     'name' => $fileName,
                 ]);
@@ -63,17 +51,13 @@ class OcrUploadController extends Controller
                     throw new \Exception('Firebase upload returned null');
                 }
 
-                // Make public
                 $object->update([], ['predefinedAcl' => 'PUBLICREAD']);
-
-                // Verify exists
                 $uploadedObject = $bucket->object($fileName);
 
                 if (!$uploadedObject->exists()) {
                     throw new \Exception('File not found in Firebase after upload');
                 }
 
-                // Verify not empty
                 $info = $uploadedObject->info();
                 if (($info['size'] ?? 0) == 0) {
                     throw new \Exception('Uploaded file is empty');
@@ -93,18 +77,12 @@ class OcrUploadController extends Controller
             }
         }
 
-        // 🔥 REMOVE base64 from data BEFORE saving
         unset($data['image_base64']);
-
-        // Save clean data (NO base64)
         $upload = OcrUploads::create($data);
 
         return new OcrUploadResource($upload);
     }
 
-    /**
-     * GET /ocr-uploads/{id}
-     */
     public function show(string $id)
     {
         $upload = OcrUploads::findOrFail($id);
@@ -112,9 +90,6 @@ class OcrUploadController extends Controller
         return new OcrUploadResource($upload);
     }
 
-    /**
-     * PUT/PATCH /ocr-uploads/{id}
-     */
     public function update(OcrUploadRequest $request, string $id, FirebaseService $firebase)
     {
         $upload = OcrUploads::findOrFail($id);
@@ -184,13 +159,7 @@ class OcrUploadController extends Controller
                 $data['image_path'] = "https://storage.googleapis.com/{$bucketName}/{$fileName}";
             }
 
-            /**
-             * ===============================
-             * 🟡 CASE 3: NO CHANGE
-             * ===============================
-             */
             else {
-                // keep old image_path
                 unset($data['image_path']);
             }
 
@@ -208,28 +177,17 @@ class OcrUploadController extends Controller
         }
     }
 
-    /**
-     * DELETE /ocr-uploads/{id}
-     */
     public function destroy(string $id, FirebaseService $firebase)
     {
         $upload = OcrUploads::findOrFail($id);
 
         try {
             if ($upload->image_path) {
-
-                // 🔥 Get bucket
                 $storage = $firebase->storage();
                 $bucket = $storage->getBucket();
 
-                // 🔥 Extract file path from URL
-                // Example:
-                // https://storage.googleapis.com/bucket/ocr_uploads/file.png
-
                 $oldFileName = basename($upload->image_path); // extract filename from stored URL
                 $filePath = "ocr_uploads/" . $oldFileName;
-
-                // 🔥 Delete file from Firebase
                 $object = $bucket->object($filePath);
 
                 if ($object->exists()) {
@@ -246,8 +204,6 @@ class OcrUploadController extends Controller
                 'error' => $e->getMessage()
             ], 500);
         }
-
-        // 🔥 Delete DB record only after file is handled
         $upload->delete();
 
         return response()->json([

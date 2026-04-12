@@ -12,9 +12,6 @@ use Illuminate\Http\Request;
 
 class SiteSubContractorController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $siteSubContractors = SiteSubContractors::with([
@@ -28,9 +25,6 @@ class SiteSubContractorController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(SiteSubContractorRequest $request)
     {
         $data = SiteSubContractors::create($request->validated());
@@ -41,9 +35,6 @@ class SiteSubContractorController extends Controller
         ], 201);
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         $data = SiteSubContractors::findOrFail($id);
@@ -51,9 +42,6 @@ class SiteSubContractorController extends Controller
         return response()->json($data);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(SiteSubContractorRequest $request, string $id)
     {
         $data = SiteSubContractors::findOrFail($id);
@@ -66,9 +54,6 @@ class SiteSubContractorController extends Controller
         ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         $data = SiteSubContractors::findOrFail($id);

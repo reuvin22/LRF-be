@@ -13,9 +13,6 @@ use Illuminate\Http\Request;
 
 class AttendanceController extends Controller
 {
-    /**
-     * Display a listing of all attendance records.
-     */
     public function index(Request $request)
     {
         $query = Attendance::with(['segments', 'transportation_expenses', 'attendance_subcontractor_segments']);
@@ -35,9 +32,6 @@ class AttendanceController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created attendance record.
-     */
     public function store(AttendanceRequest $request)
     {
         $validated = $request->validated();
@@ -61,9 +55,6 @@ class AttendanceController extends Controller
         ], 201);
     }
 
-    /**
-     * Display the specified attendance record.
-     */
     public function show(string $id)
     {
         $attendance = Attendance::findOrFail($id);
@@ -74,9 +65,6 @@ class AttendanceController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified attendance record.
-     */
     public function update(AttendanceRequest $request, string $id)
     {
         $attendance = Attendance::findOrFail($id);
@@ -91,9 +79,6 @@ class AttendanceController extends Controller
         ]);
     }
 
-    /**
-     * Remove the specified attendance record.
-     */
     public function destroy(string $id)
     {
         $attendance = Attendance::findOrFail($id);
@@ -143,8 +128,7 @@ class AttendanceController extends Controller
             ], 400);
         }
 
-        // Assuming AttendanceEmployee has a relationship to segments
-        $attendanceEmployees = AttendanceEmployee::with('segments') // eager load segments
+        $attendanceEmployees = AttendanceEmployee::with('segments')
             ->where('attendance_id', $attendance_id)
             ->get();
 

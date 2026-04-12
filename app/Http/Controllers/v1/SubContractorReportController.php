@@ -8,9 +8,6 @@ use App\Models\SubContractorReport;
 
 class SubContractorReportController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $reports = SubContractorReport::all();
@@ -21,9 +18,6 @@ class SubContractorReportController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -46,9 +40,6 @@ class SubContractorReportController extends Controller
         ], 201);
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         $report = SubContractorReport::find($id);
@@ -66,9 +57,6 @@ class SubContractorReportController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         $report = SubContractorReport::find($id);
@@ -99,9 +87,6 @@ class SubContractorReportController extends Controller
         ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         $report = SubContractorReport::find($id);

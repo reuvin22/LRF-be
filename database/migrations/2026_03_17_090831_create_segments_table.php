@@ -22,6 +22,10 @@ return new class extends Migration
             $table->timestampTz('start_time');
             $table->timestampTz('end_time')->nullable();
             $table->timestamps();
+            $table->foreign('attendance_id')
+                ->references('attendance_id')
+                ->on('attendances')
+                ->onDelete('cascade');
         });
     }
 
