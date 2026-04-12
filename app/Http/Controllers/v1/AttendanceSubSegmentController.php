@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\v1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\v1\AttendanceSubSegmentsRequest;
 use App\Http\Resources\v1\AttendanceSubcontractorSegmentResource;
 use Illuminate\Http\Request;
 use App\Models\AttendanceSubSegments;
@@ -19,24 +20,9 @@ class AttendanceSubSegmentController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(AttendanceSubSegmentsRequest $request)
     {
-        $validated = $request->validate([
-            'attendance_id' => 'required|integer',
-            'segment_id' => 'required|integer',
-            'company_id' => 'required|integer|max:50',
-            'company_name' => 'required|string|max:255',
-            'employee_id' => 'required|integer',
-            'worker_id' => 'required|integer',
-            'worker_name' => 'nullable|string|max:255',
-            'site_id' => 'required|integer',
-            'site_name' => 'required|string|max:255',
-            'contract_type' => 'required|string|max:100',
-            'start_time' => 'required|date',
-            'end_time' => 'required|date|after_or_equal:start_time'
-        ]);
-
-        $record = AttendanceSubSegments::create($validated);
+        $record = AttendanceSubSegments::create($request->validated());
 
         return response()->json([
             'success' => true,

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class AttendanceSubSegments extends Model
 {
-    protected $table = 'attendance_sub';
+    protected $table = 'attendance_subsegments';
 
     protected $primaryKey = 'id';
 

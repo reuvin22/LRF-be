@@ -10,9 +10,12 @@ class Employees extends Model
 
     protected $primaryKey = 'employee_id';
 
+    public $incrementing = false;
+    protected $keyType = 'string';
     public $timestamps = true;
 
     protected $fillable = [
+        'employee_id',
         'employee_code',
         'name',
         'name_kana',

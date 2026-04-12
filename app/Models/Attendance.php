@@ -3,12 +3,16 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Attendance extends Model
 {
     protected $table = 'attendances';
 
     protected $primaryKey = 'attendance_id';
+
+    public $incrementing = false;
+    protected $keyType = 'string';
 
     public $timestamps = true;
 
@@ -26,14 +30,15 @@ class Attendance extends Model
         'overtime_minutes' => 'integer',
     ];
 
-    public function employees()
+    protected static function boot()
     {
-        return $this->belongsToMany(
-            Employees::class,
-            'attendance_employee',
-            'attendance_id',
-            'employee_id'
-        );
+        parent::boot();
+
+        static::creating(function ($model) {
+            if (!$model->attendance_id) {
+                $model->attendance_id = (string) Str::uuid();
+            }
+        });
     }
 
     public function segments()

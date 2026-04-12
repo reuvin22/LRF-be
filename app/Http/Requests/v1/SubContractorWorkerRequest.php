@@ -23,7 +23,7 @@ class SubContractorWorkerRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'subcontractor_id' => 'required|integer',
+            'subcontractor_id' => 'required|uuid',
             'name' => 'required|string',
             'status' => 'required|string|in:ACTIVE,INACTIVE'
         ];

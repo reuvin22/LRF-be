@@ -5,7 +5,7 @@ namespace App\Http\Requests\v1;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class SiteAssignmentRequest extends FormRequest
+class AttendanceSubSegmentsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,11 +23,18 @@ class SiteAssignmentRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'attendance_id' => 'required|uuid',
+            'segment_id' => 'required|uuid',
+            'company_id' => 'required|uuid|max:50',
+            'company_name' => 'required|string|max:255',
             'employee_id' => 'required|uuid',
+            'worker_id' => 'required|uuid',
+            'worker_name' => 'nullable|string|max:255',
             'site_id' => 'required|uuid',
-            'is_leader' => 'nullable|boolean',
-            'start_date' => 'required|date',
-            'end_date' => 'nullable|date|after_or_equal:start_date',
+            'site_name' => 'required|string|max:255',
+            'contract_type' => 'required|string|max:100',
+            'start_time' => 'required|date',
+            'end_time' => 'required|date|after_or_equal:start_time'
         ];
     }
 }

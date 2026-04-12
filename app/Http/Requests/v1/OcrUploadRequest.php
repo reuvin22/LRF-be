@@ -14,11 +14,11 @@ class OcrUploadRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'uploaded_by' => 'nullable|integer',
-            'category_id' => 'nullable|integer',
-            'site_id' => 'nullable|integer',
-            'subcontractor_id' => 'nullable|integer',
-            'attendance_id' => 'nullable|integer',
+            'uploaded_by' => 'nullable|uuid',
+            'category_id' => 'nullable|uuid',
+            'site_id' => 'nullable|uuid',
+            'subcontractor_id' => 'nullable|uuid',
+            'attendance_id' => 'nullable|uuid',
             'upload_source' => 'nullable|string',
             'status' => 'nullable|string',
             'image_path' => 'nullable|string',
@@ -27,7 +27,7 @@ class OcrUploadRequest extends FormRequest
             'ocr_result_raw' => 'nullable|string',
             'image_base64' => 'nullable',
             'confirmed' => 'nullable|boolean',
-            'confirmed_by' => 'nullable|integer',
+            'confirmed_by' => 'nullable|uuid',
             'confirmed_at' => 'nullable|date',
 
             'note' => 'nullable|string',

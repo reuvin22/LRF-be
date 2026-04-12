@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\v1\SegmentRequests;
 use App\Models\Segment;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 
 class SegmentController extends Controller
 {
@@ -25,7 +27,7 @@ class SegmentController extends Controller
     public function store(SegmentRequests $request)
     {
         $validated = $request->validated();
-
+        Log::info('payload', ['payload' => $validated]);
         if (!empty($validated['start_time'])) {
             $validated['start_time'] = Carbon::parse($validated['start_time'])->utc();
         }

@@ -7,7 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Segment extends Model
 {
     protected $primaryKey = 'segment_id';
+    public $incrementing = false;
+    protected $keyType = 'string';
     protected $fillable = [
+        'segment_id',
         'attendance_id',
         'employee_id',
         'site_id',
@@ -18,7 +21,9 @@ class Segment extends Model
         'end_time',
         'type'
     ];
+
     protected $casts = [
+        'segment_id' => 'string',
         'start_time' => 'datetime',
         'end_time' => 'datetime',
     ];

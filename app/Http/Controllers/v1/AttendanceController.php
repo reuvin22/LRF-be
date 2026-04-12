@@ -107,10 +107,7 @@ class AttendanceController extends Controller
 
     public function attendance_employee(AttendanceEmployeeRequest $request)
     {
-        $attendanceEmployee = AttendanceEmployee::create([
-            'attendance_id' => $request->attendance_id,
-            'employee_id' => $request->employee_id,
-        ]);
+        $attendanceEmployee = AttendanceEmployee::create($request->validated());
 
         return response()->json([
             'message' => 'Employee assigned to attendance successfully',

@@ -23,8 +23,8 @@ class SiteSubContractorRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'site_id' => 'required|integer',
-            'subcontractor_id' => 'required|integer',
+            'site_id' => 'required|uuid',
+            'subcontractor_id' => 'required|uuid',
             'contract_type' => 'string|max:255|in:QUASI_DELEGATION,FIXED_PRICE'
         ];
     }

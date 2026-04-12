@@ -39,11 +39,12 @@ class SegmentRequests extends FormRequest
     public function rules(): array
     {
         return [
-            'attendance_id' => 'required|integer',
-            'employee_id' => 'required|integer',
-            'site_id' => 'nullable|integer',
+            'segment_id' => 'required|uuid',
+            'attendance_id' => 'required|uuid',
+            'employee_id' => 'required|uuid',
+            'site_id' => 'nullable|uuid',
             'segment_type' => 'required|string|in:TRAVEL,SITE,OFFICE',
-            'site_id' => 'nullable|string',
+            'site_id' => 'nullable|uuid',
             'site_name' => 'nullable|string',
             'start_time' => 'required|date',
             'end_time' => 'nullable|date|after_or_equal:start_time',

@@ -23,7 +23,7 @@ class AttendanceRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'employee_id' => 'required|integer',
+            'employee_id' => 'required|uuid',
             'work_date' => 'required|date',
             'status' => 'required|in:WORKING,END_OF_DAY,NOT_STARTED,COMPLETED',
             'total_work_minutes' => 'nullable|integer|min:0',

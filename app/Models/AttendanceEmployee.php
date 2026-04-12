@@ -7,10 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class AttendanceEmployee extends Model
 {
     protected $table = 'attendance_employee';
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'uuid';
     public $timestamps = true;
 
     protected $fillable = [
+        'uuid',
         'attendance_id',
         'employee_id',
     ];
