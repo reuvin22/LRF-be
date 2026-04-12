@@ -12,14 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('sub_contractor_reports', function (Blueprint $table) {
-            $table->id();
-            $table->integer('attendance_id');
-            $table->integer('employee_id');
-            $table->integer('worker_id')->nullable();
+            $table->uuid()->primary();
+            $table->uuid('attendance_id');
+            $table->uuid('employee_id');
+            $table->uuid('worker_id')->nullable();
             $table->string('worker_name');
             $table->string('contract_type');
             $table->string('company_name');
-            $table->integer('site_id');
+            $table->uuid('site_id');
             $table->timestampTz('start_time');
             $table->timestampTz('end_time');
             $table->timestamps();

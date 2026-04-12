@@ -13,7 +13,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('ocr_upload_categories', function (Blueprint $table) {
-            $table->id('category_id');
+            $table->uuid('category_id')->primary();
             $table->string('category_name');
             $table->string('description')->nullable();
             $table->enum('status', ['ACTIVE', 'INACTIVE'])->default('INACTIVE');

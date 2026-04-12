@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
        Schema::create('segments', function (Blueprint $table) {
-            $table->id('segment_id');
-            $table->unsignedBigInteger('attendance_id');
-            $table->unsignedBigInteger('employee_id');
+            $table->uuid('segment_id')->primary();
+            $table->uuid('attendance_id');
+            $table->uuid('employee_id');
             $table->string('type');
             $table->enum('segment_type', ['TRAVEL', 'SITE', 'OFFICE']);
             $table->string('site_id')->nullable();

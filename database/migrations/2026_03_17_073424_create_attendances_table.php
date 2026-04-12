@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('attendances', function (Blueprint $table) {
-            $table->id('attendance_id');
-            $table->unsignedBigInteger('employee_id');
+            $table->uuid('attendance_id')->primary();
+            $table->uuid('employee_id');
             $table->date('work_date');
             $table->enum('status', ['WORKING', 'END_OF_DAY', 'NOT_STARTED']);
             $table->integer('total_work_minutes')->default(0);

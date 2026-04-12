@@ -12,10 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('site_subcontractors', function (Blueprint $table) {
-            $table->id();
+            $table->uuid()->primary();
 
-            $table->unsignedBigInteger('site_id');
-            $table->unsignedBigInteger('subcontractor_id');
+            $table->uuid('site_id');
+            $table->uuid('subcontractor_id');
 
             $table->enum('contract_type', [
                 'QUASI_DELEGATION',
