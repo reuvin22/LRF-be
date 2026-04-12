@@ -55,4 +55,9 @@ class Attendance extends Model
     {
         return $this->hasMany(AttendanceSubSegments::class, 'attendance_id', 'attendance_id');
     }
+
+    public function employee()
+    {
+        return $this->belongsTo(Employees::class, 'employee_id', 'employee_id');
+    }
 }

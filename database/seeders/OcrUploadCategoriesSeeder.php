@@ -15,6 +15,7 @@ class OcrUploadCategoriesSeeder extends Seeder
     {
         $categories = [
             [
+                'category_id' => (string) Str::uuid(),
                 'category_name' => 'Ad-hoc Transport',
                 'description' => 'Expenses related to ad-hoc transport',
                 'status' => 'ACTIVE',
@@ -22,6 +23,7 @@ class OcrUploadCategoriesSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
+                'category_id' => (string) Str::uuid(),
                 'category_name' => 'Transportation',
                 'description' => 'Regular transportation expenses',
                 'status' => 'ACTIVE',
@@ -29,6 +31,7 @@ class OcrUploadCategoriesSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
+                'category_id' => (string) Str::uuid(),
                 'category_name' => 'Meals',
                 'description' => 'Meal related expenses',
                 'status' => 'ACTIVE',
@@ -36,6 +39,7 @@ class OcrUploadCategoriesSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
+                'category_id' => (string) Str::uuid(),
                 'category_name' => 'Supplies',
                 'description' => 'Office or project supplies',
                 'status' => 'ACTIVE',

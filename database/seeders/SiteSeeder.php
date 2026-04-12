@@ -4,19 +4,18 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str; // ✅ ADD THIS
 use Carbon\Carbon;
 
 class SiteSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
         $now = Carbon::now();
 
         DB::table('construction_sites')->insert([
             [
+                'site_id' => (string) Str::uuid(), // ✅ UUID
                 'site_code' => 'SIT-001',
                 'site_name' => 'Site A - Shinjuku Tower',
                 'client_name' => 'ABC Construction Co.',
@@ -31,6 +30,7 @@ class SiteSeeder extends Seeder
                 'updated_at' => $now,
             ],
             [
+                'site_id' => (string) Str::uuid(),
                 'site_code' => 'SIT-002',
                 'site_name' => 'Site B - Shibuya Office',
                 'client_name' => 'XYZ Builders Inc.',
@@ -45,6 +45,7 @@ class SiteSeeder extends Seeder
                 'updated_at' => $now,
             ],
             [
+                'site_id' => (string) Str::uuid(),
                 'site_code' => 'SIT-003',
                 'site_name' => 'Site C - Roppongi Hills',
                 'client_name' => 'LMN General Contractors',

@@ -96,7 +96,7 @@ class AttendanceController extends Controller
         $attendance = Attendance::whereDate('work_date', $date)->get();
 
         $attendance->load([
-            'employees',
+            'employee',
             'segments',
             'transportation_expenses',
             'attendance_subcontractor_segments',

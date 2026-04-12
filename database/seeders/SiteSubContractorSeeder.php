@@ -9,23 +9,33 @@ class SiteSubContractorSeeder extends Seeder
 {
     public function run(): void
     {
-        $siteIds = [2, 3, 4, 5, 6, 7, 8, 9];
-
-        $assignments = [
-            1 => [2, 5, 8],
-            2 => [3, 6, 9],
-            3 => [4, 7, 2],
-            4 => [5, 8, 3],
-            5 => [6, 9, 4],
+        // ✅ Your real site UUIDs
+        $sites = [
+            'SIT-001' => '1f069f4b-a605-4ea7-8151-d7612b46e4ab',
+            'SIT-002' => '324c7b7d-f69d-46c7-9714-ec4a728505ef',
+            'SIT-003' => '1d069608-9b46-4bfa-a130-0d81295aa350',
         ];
+
+        // ✅ Get subcontractor UUIDs dynamically
+        $subcontractors = DB::table('subcontractors')
+            ->pluck('subcontractor_id')
+            ->values();
 
         $rows = [];
 
-        foreach ($assignments as $subcontractorId => $sites) {
-            foreach ($sites as $siteId) {
+        foreach ($subcontractors as $index => $subcontractorId) {
+
+            // Example: rotate sites per subcontractor
+            $assignedSites = [
+                $sites['SIT-001'],
+                $sites['SIT-002'],
+                $sites['SIT-003'],
+            ];
+
+            foreach ($assignedSites as $siteId) {
                 $rows[] = [
-                    'site_id' => $siteId,
-                    'subcontractor_id' => $subcontractorId,
+                    'site_id' => $siteId, // ✅ UUID
+                    'subcontractor_id' => $subcontractorId, // ✅ UUID
                     'contract_type' => rand(0, 1)
                         ? 'QUASI_DELEGATION'
                         : 'FIXED_PRICE',
@@ -34,8 +44,6 @@ class SiteSubContractorSeeder extends Seeder
                 ];
             }
         }
-
-        shuffle($rows);
 
         DB::table('site_subcontractors')->insert($rows);
     }
