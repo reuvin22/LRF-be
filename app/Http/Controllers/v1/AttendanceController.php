@@ -10,6 +10,7 @@ use App\Http\Resources\v1\AttendanceResource;
 use App\Models\Attendance;
 use App\Models\AttendanceEmployee;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class AttendanceController extends Controller
 {
@@ -107,7 +108,9 @@ class AttendanceController extends Controller
 
     public function attendance_employee(AttendanceEmployeeRequest $request)
     {
-        $attendanceEmployee = AttendanceEmployee::create($request->validated());
+        $validated = $request->validated();
+        $validated['uuid'] = (string) Str::uuid();
+        $attendanceEmployee = AttendanceEmployee::create($validated);
 
         return response()->json([
             'message' => 'Employee assigned to attendance successfully',

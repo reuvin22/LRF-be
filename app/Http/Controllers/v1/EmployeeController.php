@@ -5,6 +5,7 @@ namespace App\Http\Controllers\v1;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\v1\EmployeeRequests;
 use App\Models\Employees;
+use Illuminate\Support\Str;
 
 class EmployeeController extends Controller
 {
@@ -21,7 +22,7 @@ class EmployeeController extends Controller
     public function store(EmployeeRequests $request)
     {
         $validated = $request->validated();
-
+        $validated['employee_id'] = (string) Str::uuid();
         $employee = Employees::create($validated);
 
         return response()->json([

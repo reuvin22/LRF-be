@@ -23,7 +23,6 @@ class EmployeeRequests extends FormRequest
     public function rules(): array
     {
         return [
-            'employee_id' => 'required|uuid',
             'employee_code' => 'required|string|max:50',
             'name' => 'required|string|max:255',
             'name_kana' => 'nullable|string|max:255',
