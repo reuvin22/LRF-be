@@ -9,6 +9,8 @@ class ConstructionSites extends Model
     protected $table = 'construction_sites';
 
     protected $primaryKey = 'site_id';
+    protected $keyType = 'string';
+    public $incrementing = false;
 
     public $timestamps = true;
 

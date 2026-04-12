@@ -18,7 +18,11 @@ class SiteAssignments extends Model
         'end_date'
     ];
 
+
     protected $casts = [
+        'assignment_id' => 'string',
+        'site_id' => 'string',
+        'employee_id' => 'string',
         'is_leader' => 'boolean',
         'start_date' => 'date',
         'end_date' => 'date',
